@@ -25,7 +25,7 @@ public class Pagamento {
     private String metodo;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
+    @JoinColumn(name = "id_pedido", referencedColumnName = "idPedido")
     private Pedidos id_pedido;
 
     public Integer getId_pagamento() {

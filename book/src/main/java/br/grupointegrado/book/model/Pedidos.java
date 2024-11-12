@@ -27,16 +27,16 @@ public class Pedidos {
     @Column
     private String status;
 
-    @OneToMany(mappedBy = "id_pedido")
-    @JsonIgnoreProperties("id_pedido")
-    private List<Pagamento> Pagamentos;
+    @OneToMany(mappedBy = "id_pagamento")
+    @JsonIgnoreProperties("id_pagamento")
+    private List<Pagamento> Pagamento;
 
     public List<Pagamento> getPagamentos() {
-        return Pagamentos;
+        return Pagamento;
     }
 
-    public void setPagamentos(List<Pagamento> pagamentos) {
-        Pagamentos = pagamentos;
+    public void setPagamento(List<Pagamento> pagamento) {
+        Pagamento = pagamento;
     }
 
     public Integer getIdPedido() {

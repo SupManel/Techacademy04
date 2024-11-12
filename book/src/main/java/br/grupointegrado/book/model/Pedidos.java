@@ -1,8 +1,10 @@
 package br.grupointegrado.book.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +26,18 @@ public class Pedidos {
 
     @Column
     private String status;
+
+    @OneToMany(mappedBy = "id_pedido")
+    @JsonIgnoreProperties("id_pedido")
+    private List<Pagamento> Pagamentos;
+
+    public List<Pagamento> getPagamentos() {
+        return Pagamentos;
+    }
+
+    public void setPagamentos(List<Pagamento> pagamentos) {
+        Pagamentos = pagamentos;
+    }
 
     public Integer getIdPedido() {
         return idPedido;

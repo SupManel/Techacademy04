@@ -1,7 +1,7 @@
 package br.grupointegrado.book.controller;
 
-import br.grupointegrado.book.DTO.PedidoRequestDTO;
 import br.grupointegrado.book.model.Pedidos;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class PedidosController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedidos> save(@RequestBody PedidoRequestDTO dto) {
+    public ResponseEntity<Pedidos> save(@RequestBody Pedidos dto) {
         if (dto.status().isEmpty() || dto.status() == null) {
                 return ResponseEntity.status(400).build();
         }
@@ -44,4 +44,25 @@ public class PedidosController {
         return this.repository.save(dto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Pedidos id) {
+        Pedidos pedidos = Optional.ofNullable(this.repository.findById(id.getId_pedidos()))
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Pedido não encontrado"));
+
+        this.repository.delete(pedidos);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pedidos> update(@PathVariable Pedidos id) {
+        Pedidos pedidos = Optional.ofNullable(this.repository.findById(id.getId_pedidos()))
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Pedido não encontrado"));
+
+        pedidos.setStatus(id.getStatus());
+
+        repository.save(pedidos);
+        return ResponseEntity.ok(pedidos);
+    }
 }

@@ -91,4 +91,18 @@ public class Pedidos {
     public int hashCode() {
         return Objects.hashCode(idPedido);
     }
+
+    public void orElseThrow(Object pedidoNãoEncontrado) {
+
+    }
+
+    public Integer getId_pedidos() {
+
+        return 0;
+    }
+
+    public String status() {
+
+        return status;
+    }
 }

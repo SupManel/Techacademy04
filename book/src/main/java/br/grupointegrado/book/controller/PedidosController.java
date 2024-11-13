@@ -2,6 +2,7 @@ package br.grupointegrado.book.controller;
 
 import br.grupointegrado.book.model.Pedidos;
 
+import br.grupointegrado.book.repository.PedidosRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +13,18 @@ import java.util.Optional;
 @RequestMapping("/api/pedidos")
 public class PedidosController {
 
-    private static PedidosController repository;
+    private PedidosRepository repository;
 
-    public static void setRepository(PedidosController repository) {
-        PedidosController.repository = repository;
-    }
 
     @GetMapping
     public ResponseEntity<List<Pedidos>> findAll() {
-        List<Pedidos> pedidos = repository.findAll().getBody();
+        List<Pedidos> pedidos = repository.findAll();
         return ResponseEntity.ok(pedidos);
     }
 
     @GetMapping("/{id}")
     public Pedidos findById(@PathVariable Integer id) {
-        return Optional.ofNullable(repository.findById(id))
+        return repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
     }
@@ -34,29 +32,30 @@ public class PedidosController {
     @PostMapping
     public ResponseEntity<Pedidos> save(@RequestBody Pedidos dto) {
         if (dto.status().isEmpty() || dto.status() == null) {
-                return ResponseEntity.status(400).build();
+                return ResponseEntity.status(428).build();
         }
 
 
         Pedidos pedidos = new Pedidos();
         pedidos.setStatus(dto.status());
 
-        return this.repository.save(dto);
+        this.repository.save(dto);
+        return ResponseEntity.ok(pedidos);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Pedidos id) {
-        Pedidos pedidos = Optional.ofNullable(this.repository.findById(id.getId_pedidos()))
+        Pedidos pedido = this.repository.findById(id.getId_pedidos())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
 
-        this.repository.delete(pedidos);
+        this.repository.delete(pedido);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Pedidos> update(@PathVariable Pedidos id) {
-        Pedidos pedidos = Optional.ofNullable(this.repository.findById(id.getId_pedidos()))
+        Pedidos pedidos = this.repository.findById(id.getId_pedidos())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
 

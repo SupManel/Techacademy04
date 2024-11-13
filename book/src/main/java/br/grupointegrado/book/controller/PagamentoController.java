@@ -3,6 +3,8 @@ package br.grupointegrado.book.controller;
 
 import br.grupointegrado.book.DTO.PagamentoRequestDTO;
 import br.grupointegrado.book.model.Pagamento;
+import br.grupointegrado.book.repository.PagamentoRepository;
+import br.grupointegrado.book.repository.PedidosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,37 +17,37 @@ import java.util.Optional;
 public class PagamentoController {
 
     @Autowired
-    private static PagamentoController repository;
+    private PagamentoRepository repository;
 
     @GetMapping
     public ResponseEntity<List<Pagamento>> findAll() {
-        List<Pagamento> pagamentos = this.repository.findAll().getBody();
+        List<Pagamento> pagamentos = this.repository.findAll();
         return ResponseEntity.ok(pagamentos);
     }
 
     @GetMapping("/{id}")
     public Pagamento findById(@PathVariable Integer id) {
-        return Optional.ofNullable(this.repository.findById(id)).orElseThrow(() ->
+        return this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Pagamento não encontrado"));
     }
 
     @PostMapping
     public ResponseEntity<Pagamento> save(@RequestBody PagamentoRequestDTO dto) {
         if (dto.metodo().isEmpty() || dto.metodo() == null) {
-            return ResponseEntity.status(400).build();
+            return ResponseEntity.status(428).build();
         }
 
 
         Pagamento pagamento = new Pagamento();
         pagamento.setMetodo(dto.metodo());
 
-        this.repository.save(dto);
+        this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Pagamento id) {
-        Pagamento pagamento = Optional.ofNullable(this.repository.findById(id.getId_pagamento()))
+        Pagamento pagamento = this.repository.findById(id.getId_pagamento())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pagamento não encontrado"));
 
@@ -59,13 +61,13 @@ public class PagamentoController {
             return ResponseEntity.status(428).build();
         }
 
-        Pagamento pagamento = Optional.ofNullable(this.repository.findById(id))
+        Pagamento pagamento = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Filme não foi encontrado"));
 
         pagamento.setMetodo(dto.metodo());
 
-        this.repository.save(dto);
+        this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);
     }
 

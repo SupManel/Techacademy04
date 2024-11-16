@@ -3,6 +3,7 @@ package br.grupointegrado.book.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,10 @@ public class Pedidos {
     @OneToMany(mappedBy = "id_pagamento")
     @JsonIgnoreProperties("id_pagamento")
     private List<Pagamento> Pagamento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    private Usuario id_usuario;
 
     public List<Pagamento> getPagamentos() {
         return Pagamento;
@@ -77,6 +82,14 @@ public class Pedidos {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Usuario getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Usuario id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     @Override

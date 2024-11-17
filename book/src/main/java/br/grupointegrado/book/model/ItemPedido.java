@@ -23,10 +23,9 @@ public class ItemPedido {
     @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
     private Pedidos id_pedido;
 
-    //fazer tabela produto e seu relacionamento aqui
-    // e seu getter e setter
-    @Column
-    private Integer id_produto;
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+    private Produto id_produto;
 
     public Integer getId_item() {
         return id_item;
@@ -58,6 +57,14 @@ public class ItemPedido {
 
     public void setId_pedido(Pedidos id_pedido) {
         this.id_pedido = id_pedido;
+    }
+
+    public Produto getId_produto() {
+        return id_produto;
+    }
+
+    public void setId_produto(Produto id_produto) {
+        this.id_produto = id_produto;
     }
 
     @Override

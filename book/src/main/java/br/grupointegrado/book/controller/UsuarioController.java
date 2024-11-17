@@ -2,6 +2,7 @@ package br.grupointegrado.book.controller;
 
 
 import br.grupointegrado.book.DTO.UsuarioRequestDTO;
+import br.grupointegrado.book.model.ItemPedido;
 import br.grupointegrado.book.model.Usuario;
 import br.grupointegrado.book.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
 public class UsuarioController {
 
     @Autowired
-    public UsuarioRepository repository;
+    private UsuarioRepository repository;
 
 
     @GetMapping
@@ -42,6 +43,16 @@ public class UsuarioController {
 
         this.repository.save(usuario);
         return ResponseEntity.ok(usuario);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Usuario id) {
+        Usuario usuario = this.repository.findById(id.getId_usuario())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Usuario não encontrado"));
+
+        this.repository.delete(usuario);
+        return ResponseEntity.noContent().build();
     }
 
 }

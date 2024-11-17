@@ -1,18 +1,20 @@
 package br.grupointegrado.book.controller;
 
+import br.grupointegrado.book.DTO.PedidoRequestDTO;
 import br.grupointegrado.book.model.Pedidos;
 
 import br.grupointegrado.book.repository.PedidosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pedidos")
 public class PedidosController {
 
+    @Autowired
     private PedidosRepository repository;
 
 
@@ -30,8 +32,8 @@ public class PedidosController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedidos> save(@RequestBody Pedidos dto) {
-        if (dto.status().isEmpty() || dto.status() == null) {
+    public ResponseEntity<Pedidos> save(@RequestBody PedidoRequestDTO dto) {
+        if (dto.status().isEmpty()) {
                 return ResponseEntity.status(428).build();
         }
 
@@ -39,7 +41,7 @@ public class PedidosController {
         Pedidos pedidos = new Pedidos();
         pedidos.setStatus(dto.status());
 
-        this.repository.save(dto);
+        this.repository.save(pedidos);
         return ResponseEntity.ok(pedidos);
     }
 

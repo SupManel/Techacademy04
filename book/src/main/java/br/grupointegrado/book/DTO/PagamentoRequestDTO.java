@@ -1,4 +1,4 @@
 package br.grupointegrado.book.DTO;
 
-public record PagamentoRequestDTO(String metodo) {
+public record PagamentoRequestDTO(String nome) {
 }

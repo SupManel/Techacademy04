@@ -2,8 +2,9 @@ package br.grupointegrado.book.model;
 
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
+
+import javax.naming.Name;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class Pagamento {
     private String metodo;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido", referencedColumnName = "idPedido")
+    @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
     private Pedidos id_pedido;
 
     public Integer getId_pagamento() {

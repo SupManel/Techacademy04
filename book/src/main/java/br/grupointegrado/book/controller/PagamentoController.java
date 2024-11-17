@@ -33,13 +33,13 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<Pagamento> save(@RequestBody PagamentoRequestDTO dto) {
-        if (dto.metodo().isEmpty() || dto.metodo() == null) {
+        if (dto.nome().isEmpty() || dto.nome() == null) {
             return ResponseEntity.status(428).build();
         }
 
 
         Pagamento pagamento = new Pagamento();
-        pagamento.setMetodo(dto.metodo());
+        pagamento.setMetodo(dto.nome());
 
         this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);
@@ -57,7 +57,7 @@ public class PagamentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Pagamento> update(@PathVariable Integer id, @RequestBody PagamentoRequestDTO dto) {
-        if (dto.metodo().isEmpty()) {
+        if (dto.nome().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 
@@ -65,7 +65,7 @@ public class PagamentoController {
                 .orElseThrow(() ->
                         new IllegalArgumentException("Filme não foi encontrado"));
 
-        pagamento.setMetodo(dto.metodo());
+        pagamento.setMetodo(dto.nome());
 
         this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);

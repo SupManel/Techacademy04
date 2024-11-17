@@ -14,7 +14,7 @@ public class Pedidos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPedido;
+    private Integer id_pedido;
 
     @Column
     private Float preco;
@@ -27,6 +27,10 @@ public class Pedidos {
 
     @Column
     private String status;
+
+    @OneToMany (mappedBy = "id_item")
+    @JsonIgnoreProperties("id_item")
+    private List<ItemPedido> itemPedido;
 
     @OneToMany(mappedBy = "id_pagamento")
     @JsonIgnoreProperties("id_pagamento")
@@ -44,12 +48,12 @@ public class Pedidos {
         Pagamento = pagamento;
     }
 
-    public Integer getIdPedido() {
-        return idPedido;
+    public Integer getId_pedido() {
+        return id_pedido;
     }
 
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public void setId_pedido(Integer id_pedido) {
+        this.id_pedido = id_pedido;
     }
 
     public Float getPreco() {
@@ -92,17 +96,25 @@ public class Pedidos {
         this.id_usuario = id_usuario;
     }
 
+    public List<br.grupointegrado.book.model.ItemPedido> getItemPedido() {
+        return itemPedido;
+    }
+
+    public void setItemPedido(List<br.grupointegrado.book.model.ItemPedido> itemPedido) {
+        this.itemPedido = itemPedido;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pedidos pedidos = (Pedidos) o;
-        return Objects.equals(idPedido, pedidos.idPedido);
+        return Objects.equals(id_pedido, pedidos.id_pedido);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(idPedido);
+        return Objects.hashCode(id_pedido);
     }
 
     public void orElseThrow(Object pedidoNãoEncontrado) {

@@ -1,0 +1,1 @@
+alter table pedido drop column id_item;

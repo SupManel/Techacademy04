@@ -28,10 +28,6 @@ public class Pedidos {
     @Column
     private String status;
 
-    @OneToMany (mappedBy = "id_item")
-    @JsonIgnoreProperties("id_item")
-    private List<ItemPedido> itemPedido;
-
     @OneToMany(mappedBy = "id_pagamento")
     @JsonIgnoreProperties("id_pagamento")
     private List<Pagamento> Pagamento;
@@ -94,14 +90,6 @@ public class Pedidos {
 
     public void setId_usuario(Usuario id_usuario) {
         this.id_usuario = id_usuario;
-    }
-
-    public List<br.grupointegrado.book.model.ItemPedido> getItemPedido() {
-        return itemPedido;
-    }
-
-    public void setItemPedido(List<br.grupointegrado.book.model.ItemPedido> itemPedido) {
-        this.itemPedido = itemPedido;
     }
 
     @Override

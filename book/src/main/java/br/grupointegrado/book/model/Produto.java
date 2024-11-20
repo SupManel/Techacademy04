@@ -25,11 +25,6 @@ public class Produto {
     @Column
     private Integer estoque;
 
-    //fazer a tabela categoria (e a tabela produto_categoria many to many)
-    // mapear a FK e fazer o getter e setter dela
-    @Column
-    private Integer id_categoria;
-
     public Integer getId_produto() {
         return id_produto;
     }

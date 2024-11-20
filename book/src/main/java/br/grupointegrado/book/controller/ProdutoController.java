@@ -1,9 +1,70 @@
 package br.grupointegrado.book.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import br.grupointegrado.book.DTO.ProdutoRequestDTO;
+import br.grupointegrado.book.model.Produto;
+import br.grupointegrado.book.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static java.lang.Integer.valueOf;
 
 @RestController
 @RequestMapping("/api/produto")
 public class ProdutoController {
+
+    @Autowired
+    private ProdutoRepository repository;
+
+    @GetMapping
+    public ResponseEntity<List<Produto>> findAll() {
+        List<Produto> produtos = repository.findAll();
+        return ResponseEntity.ok(produtos);
+    }
+
+    @GetMapping("/{id}")
+    public Produto findById(@PathVariable Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Produto não encontrado"));
+    }
+
+    @PostMapping
+    public ResponseEntity<Produto> save(@RequestBody ProdutoRequestDTO dto) {
+        if (dto.id_produto().isEmpty()) {
+            return ResponseEntity.status(428).build();
+        }
+
+
+        Produto produtos = new Produto();
+        produtos.setId_produto(valueOf(dto.id_produto()));
+
+        this.repository.save(produtos);
+        return ResponseEntity.ok(produtos);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Produto id) {
+        Produto produto = this.repository.findById(id.getId_produto())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Produto não encontrado"));
+
+        this.repository.delete(produto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update(@PathVariable Produto id) {
+        Produto produto = this.repository.findById(id.getId_produto())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Produto não encontrado"));
+
+        produto.setId_produto(id.getId_produto());
+
+        repository.save(produto);
+        return ResponseEntity.ok(produto);
+    }
 }

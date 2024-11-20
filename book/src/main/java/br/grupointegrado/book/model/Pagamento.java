@@ -4,7 +4,6 @@ package br.grupointegrado.book.model;
 import jakarta.persistence.*;
 
 
-import javax.naming.Name;
 import java.util.Date;
 import java.util.Objects;
 

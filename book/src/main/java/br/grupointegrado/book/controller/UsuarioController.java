@@ -35,11 +35,13 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> save(@RequestBody UsuarioRequestDTO DTO) {
-        if (DTO.nome().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
         Usuario usuario = new Usuario();
+
+        usuario.setId_usuario(DTO.id_usuario());
         usuario.setNome(DTO.nome());
+        usuario.setGmail(DTO.gmail());
+        usuario.setSenha(DTO.senha());
+        usuario.setCep(DTO.senha());
 
         this.repository.save(usuario);
         return ResponseEntity.ok(usuario);

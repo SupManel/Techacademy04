@@ -2,22 +2,32 @@ package br.grupointegrado.book.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table (name = "itemCategoria")
 public class ItemCategoria {
 
-    @OneToMany (mappedBy = "id_categoria")
-    @JsonIgnoreProperties("id_categoria")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_itemCategoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     private Categoria id_categoria;
 
-    @OneToMany(mappedBy = "id_produto")
-    @JsonIgnoreProperties("id_produto")
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
     private Produto id_produto;
+
+    public Integer getId_itemCategoria() {
+        return id_itemCategoria;
+    }
+
+    public void setId_itemCategoria(Integer id_itemCategoria) {
+        this.id_itemCategoria = id_itemCategoria;
+    }
 
     public Categoria getId_categoria() {
         return id_categoria;

@@ -6,8 +6,8 @@ CREATE TABLE audit_preco_produto (
     motivo varchar(255),
     id_produto int,
     id_usuario int,
-    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
 DELIMITER //

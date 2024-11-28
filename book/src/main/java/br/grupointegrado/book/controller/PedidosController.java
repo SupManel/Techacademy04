@@ -33,7 +33,7 @@ public class PedidosController {
 
     @PostMapping
     public ResponseEntity<Pedidos> save(@RequestBody PedidoRequestDTO dto) {
-        if (dto.id_usuario().getNome().isEmpty()) {
+        if (dto.id_pedido().toString().isEmpty()) {
                 return ResponseEntity.status(428).build();
         }
 

@@ -20,7 +20,7 @@ public class Produto {
     private String autor;
 
     @Column
-    private float preco;
+    private Float preco;
 
     @Column
     private Integer estoque;

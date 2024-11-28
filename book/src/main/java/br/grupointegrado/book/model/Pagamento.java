@@ -4,7 +4,7 @@ package br.grupointegrado.book.model;
 import jakarta.persistence.*;
 
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,7 +16,7 @@ public class Pagamento {
     private Integer id_pagamento;
 
     @Column
-    private Date data_pagamento;
+    private LocalDate data_pagamento;
 
     @Column
     private Float valor;
@@ -36,11 +36,11 @@ public class Pagamento {
         this.id_pagamento = id_pagamento;
     }
 
-    public Date getData_pagamento() {
+    public LocalDate getData_pagamento() {
         return data_pagamento;
     }
 
-    public void setData_pagamento(Date data_pagamento) {
+    public void setData_pagamento(LocalDate data_pagamento) {
         this.data_pagamento = data_pagamento;
     }
 

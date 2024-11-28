@@ -30,7 +30,7 @@ public class ItemCategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<ItemCategoria> save(@PathVariable ItemCategoriaRequestDTO dto ) {
+    public ResponseEntity<ItemCategoria> save(@RequestBody ItemCategoriaRequestDTO dto ) {
         if (dto.id_itemCategoria().toString().isEmpty()) {
             return ResponseEntity.status(428).build();
         }

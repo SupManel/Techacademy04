@@ -33,12 +33,11 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<Pagamento> save(@RequestBody PagamentoRequestDTO dto) {
-        if (dto.id_pagamento() == null) {
-            return ResponseEntity.status(428).build();
-        }
-
-
         Pagamento pagamento = new Pagamento();
+
+        pagamento.setId_pagamento(dto.id_pagamento());
+        pagamento.setValor(dto.valor());
+        pagamento.setData_pagamento(dto.date_pagamento());
         pagamento.setMetodo(dto.metodo());
 
         this.repository.save(pagamento);
@@ -57,10 +56,7 @@ public class PagamentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Pagamento> update(@PathVariable Integer id, @RequestBody PagamentoRequestDTO dto) {
-        if (dto.metodo().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
+        ResponseEntity.status(428).build();
         Pagamento pagamento = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pagamento não foi encontrado"));

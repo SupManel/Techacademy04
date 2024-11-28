@@ -33,13 +33,14 @@ public class PedidosController {
 
     @PostMapping
     public ResponseEntity<Pedidos> save(@RequestBody PedidoRequestDTO dto) {
-        if (dto.id_pedido().toString().isEmpty()) {
-                return ResponseEntity.status(428).build();
-        }
-
-
         Pedidos pedidos = new Pedidos();
-        pedidos.setStatus(dto.status());
+
+        pedidos.setId_pedido(dto.id_pedido());
+        pedidos.setPreco(dto.preco());
+        pedidos.setTotal(dto.total());
+        pedidos.setData(dto.data());
+        pedidos.setStatus(dto.status());;
+        pedidos.setId_usuario(dto.id_usuario());
 
         this.repository.save(pedidos);
         return ResponseEntity.ok(pedidos);

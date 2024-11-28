@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/item-pedido")
+@RequestMapping("/api/itemPedido")
 public class ItemPedidoController {
 
     @Autowired
@@ -31,13 +31,15 @@ public class ItemPedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<ItemPedido> save(@PathVariable ItemPedidoRequestDTO dto ) {
-        if (dto.id_item().toString().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
+    public ResponseEntity<ItemPedido> save(@RequestBody ItemPedidoRequestDTO dto ) {
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setId_item(Integer.valueOf(dto.id_item()));
+
+        itemPedido.setId_item(dto.id_item());
+        itemPedido.setId_pedido(dto.id_pedido());
+        itemPedido.setPreco_unitario(dto.preco_unitario());
+        itemPedido.setQuantidade_item(dto.quantidade_item());
+        itemPedido.setId_produto(dto.id_produto());
+
 
         this.repository.save(itemPedido);
         return ResponseEntity.ok(itemPedido);
@@ -55,15 +57,13 @@ public class ItemPedidoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ItemPedido> update(@PathVariable Integer id, @RequestBody ItemPedidoRequestDTO dto) {
-        if (dto.id_item().toString().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
+        ResponseEntity.status(428).build();
 
         ItemPedido itemPedido = this.repository.findById(id).
                 orElseThrow(() ->
                         new IllegalArgumentException("Item-Pedido não foi encontrado"));
 
-        itemPedido.setId_item(Integer.valueOf(dto.id_item()));
+
 
         this.repository.save(itemPedido);
         return ResponseEntity.ok(itemPedido);

@@ -24,10 +24,10 @@ public class Pagamento {
     @Column
     private String metodo;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
     private Pedidos id_pedido;
-
+    */
     public Integer getId_pagamento() {
         return id_pagamento;
     }
@@ -60,14 +60,14 @@ public class Pagamento {
         this.metodo = metodo;
     }
 
-    public Pedidos getId_pedido() {
+    /*public Pedidos getId_pedido() {
         return id_pedido;
     }
 
     public void setId_pedido(Pedidos id_pedido) {
         this.id_pedido = id_pedido;
     }
-
+*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

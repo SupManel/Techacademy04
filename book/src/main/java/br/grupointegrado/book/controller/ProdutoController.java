@@ -34,13 +34,15 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody ProdutoRequestDTO dto) {
-        if (dto.titulo().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
+       Produto produtos = new Produto();
 
+       produtos.setId_produto(dto.id_produto());
+       produtos.setTitulo(dto.titulo());
+       produtos.setAutor(dto.autor());
+       produtos.setDescricao(dto.descricao());
+       produtos.setPreco(dto.preco());
+       produtos.setEstoque(dto.estoque());
 
-        Produto produtos = new Produto();
-        produtos.setId_produto(valueOf(dto.id_produto()));
 
         this.repository.save(produtos);
         return ResponseEntity.ok(produtos);

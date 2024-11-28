@@ -7,6 +7,5 @@ import java.time.LocalDate;
 public record PagamentoRequestDTO(Integer id_pagamento,
                                   LocalDate date_pagamento,
                                   Float valor,
-                                  String metodo,
-                                  Integer id_pedido) {
+                                  String metodo) {
 }

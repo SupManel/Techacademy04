@@ -9,5 +9,5 @@ public record PedidoRequestDTO(Integer id_pedido,
                                Float total,
                                LocalDate data,
                                String status,
-                               Usuario id_usuario) {
+                               Integer id_usuario) {
 }

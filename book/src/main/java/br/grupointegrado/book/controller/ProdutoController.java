@@ -34,7 +34,7 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody ProdutoRequestDTO dto) {
-        if (dto.id_produto().isEmpty()) {
+        if (dto.titulo().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 

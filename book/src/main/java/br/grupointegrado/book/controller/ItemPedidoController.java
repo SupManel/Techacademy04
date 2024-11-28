@@ -32,7 +32,7 @@ public class ItemPedidoController {
 
     @PostMapping
     public ResponseEntity<ItemPedido> save(@PathVariable ItemPedidoRequestDTO dto ) {
-        if (dto.id_item().isEmpty()) {
+        if (dto.id_item().toString().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 
@@ -55,7 +55,7 @@ public class ItemPedidoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ItemPedido> update(@PathVariable Integer id, @RequestBody ItemPedidoRequestDTO dto) {
-        if (dto.id_item().isEmpty()) {
+        if (dto.id_item().toString().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 

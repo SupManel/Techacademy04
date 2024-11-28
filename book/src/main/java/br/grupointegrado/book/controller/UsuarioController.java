@@ -2,7 +2,6 @@ package br.grupointegrado.book.controller;
 
 
 import br.grupointegrado.book.DTO.UsuarioRequestDTO;
-import br.grupointegrado.book.model.ItemPedido;
 import br.grupointegrado.book.model.Usuario;
 import br.grupointegrado.book.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 
 @RestController

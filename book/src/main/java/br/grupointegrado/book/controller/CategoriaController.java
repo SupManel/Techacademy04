@@ -2,9 +2,7 @@ package br.grupointegrado.book.controller;
 
 
 import br.grupointegrado.book.DTO.CategoriaRequestDTO;
-import br.grupointegrado.book.DTO.PedidoRequestDTO;
 import br.grupointegrado.book.model.Categoria;
-import br.grupointegrado.book.model.Pedidos;
 import br.grupointegrado.book.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

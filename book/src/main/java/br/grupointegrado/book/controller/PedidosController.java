@@ -36,7 +36,7 @@ public class PedidosController {
 
         pedido.setId_pedido(dto.id_pedido());
         pedido.setPreco(dto.preco());
-        pedido.setTotal(dto.total() * dto.preco() );
+        pedido.setTotal(dto.total());
         pedido.setData(dto.data());
         pedido.setStatus(dto.status());;
         pedido.setId_usuario(dto.id_usuario());

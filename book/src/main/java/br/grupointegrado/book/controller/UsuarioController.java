@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
@@ -22,9 +21,9 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
-        List<Usuario> usuarios = this.repository.findAll();
-        return ResponseEntity.ok(usuarios);
-    }
+       List<Usuario> usuarios = this.repository.findAll();
+       return ResponseEntity.ok(usuarios);
+   }
 
     @GetMapping("/{id}")
     public Usuario findById(@PathVariable Integer id) {

@@ -32,14 +32,11 @@ public class CategoriaController {
 
     @PostMapping
     public ResponseEntity<Categoria> save(@RequestBody CategoriaRequestDTO dto) {
-        if (dto.nome().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
-
-
         Categoria categoria = new Categoria();
+
         categoria.setNome(dto.nome());
+        categoria.setId_categoria(dto.id_categoria());
+
 
         this.repository.save(categoria);
         return ResponseEntity.ok(categoria);
@@ -61,6 +58,7 @@ public class CategoriaController {
                 .orElseThrow(() ->
                         new IllegalArgumentException("Categoria não encontrado"));
 
+        categoria.setId_categoria(id.getId_categoria());
         categoria.setNome(id.getNome());
 
         repository.save(categoria);

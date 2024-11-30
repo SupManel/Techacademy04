@@ -17,11 +17,10 @@ public class PedidosController {
     @Autowired
     private PedidosRepository repository;
 
-
     @GetMapping
     public ResponseEntity<List<Pedidos>> findAll() {
-        List<Pedidos> pedidos = repository.findAll();
-        return ResponseEntity.ok(pedidos);
+        List<Pedidos> pedido = repository.findAll();
+        return ResponseEntity.ok(pedido);
     }
 
     @GetMapping("/{id}")
@@ -33,22 +32,22 @@ public class PedidosController {
 
     @PostMapping
     public ResponseEntity<Pedidos> save(@RequestBody PedidoRequestDTO dto) {
-        Pedidos pedidos = new Pedidos();
+        Pedidos pedido = new Pedidos();
 
-        pedidos.setId_pedido(dto.id_pedido());
-        pedidos.setPreco(dto.preco());
-        pedidos.setTotal(dto.total());
-        pedidos.setData(dto.data());
-        pedidos.setStatus(dto.status());;
-        pedidos.setId_usuario(dto.id_usuario());
+        pedido.setId_pedido(dto.id_pedido());
+        pedido.setPreco(dto.preco());
+        pedido.setTotal(dto.total() * dto.preco() );
+        pedido.setData(dto.data());
+        pedido.setStatus(dto.status());;
+        pedido.setId_usuario(dto.id_usuario());
 
-        this.repository.save(pedidos);
-        return ResponseEntity.ok(pedidos);
+        this.repository.save(pedido);
+        return ResponseEntity.ok(pedido);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Pedidos id) {
-        Pedidos pedido = this.repository.findById(id.getId_pedidos())
+        Pedidos pedido = this.repository.findById(id.getId_pedido())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
 
@@ -57,14 +56,20 @@ public class PedidosController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedidos> update(@PathVariable Pedidos id) {
-        Pedidos pedidos = this.repository.findById(id.getId_pedidos())
+    public ResponseEntity<Pedidos> update(@PathVariable Pedidos id, @RequestBody PedidoRequestDTO dto) {
+        Pedidos pedido = this.repository.findById(id.getId_pedido())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
 
-        pedidos.setStatus(id.getStatus());
+        pedido.setData(dto.data());
+        pedido.setPreco(dto.preco());
+        pedido.setTotal(dto.total());
+        pedido.setPagamento(dto.pagamento());
+        pedido.setStatus(dto.status());
+        pedido.setId_pedido(dto.id_pedido());
+        pedido.setId_usuario(dto.id_usuario());
 
-        repository.save(pedidos);
-        return ResponseEntity.ok(pedidos);
+        repository.save(pedido);
+        return ResponseEntity.ok(pedido);
     }
 }

@@ -56,11 +56,13 @@ public class PagamentoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Pagamento> update(@PathVariable Integer id, @RequestBody PagamentoRequestDTO dto) {
-        ResponseEntity.status(428).build();
         Pagamento pagamento = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pagamento não foi encontrado"));
 
+        pagamento.setId_pagamento(dto.id_pagamento());
+        pagamento.setValor(dto.valor());
+        pagamento.setData_pagamento(dto.date_pagamento());
         pagamento.setMetodo(dto.metodo());
 
         this.repository.save(pagamento);

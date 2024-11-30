@@ -1,12 +1,10 @@
 package br.grupointegrado.book.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
+import java.util.Objects;
 
 @Entity
-@Table (name = "itemCategoria")
+@Table (name = "itemcategoria")
 public class ItemCategoria {
 
     @Id
@@ -43,5 +41,18 @@ public class ItemCategoria {
 
     public void setId_produto(Produto id_produto) {
         this.id_produto = id_produto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemCategoria that = (ItemCategoria) o;
+        return Objects.equals(id_itemCategoria, that.id_itemCategoria);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id_itemCategoria);
     }
 }

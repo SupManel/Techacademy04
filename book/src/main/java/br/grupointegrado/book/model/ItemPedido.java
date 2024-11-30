@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table (name = "itemPdido")
+@Table (name = "itempedido")
 public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,6 @@ public class ItemPedido {
     public void setQuantidade_item(Integer quantidade_item) {
         this.quantidade_item = quantidade_item;
     }
-
     public Float getPreco_unitario() {
         return preco_unitario;
     }

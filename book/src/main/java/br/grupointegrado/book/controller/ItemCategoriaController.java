@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/itemCategoria")
+@RequestMapping("/api/item-categoria")
 public class ItemCategoriaController {
 
     @Autowired
@@ -18,25 +18,24 @@ public class ItemCategoriaController {
 
     @GetMapping
     public ResponseEntity<List<ItemCategoria>> findAll() {
-        List<ItemCategoria> itemcategoria = repository.findAll();
+        List<ItemCategoria> itemcategoria = this.repository.findAll();
         return ResponseEntity.ok(itemcategoria);
     }
 
     @GetMapping("/{id}")
     public ItemCategoria findById(@PathVariable Integer id) {
-        return repository.findById(id).
+        return this.repository.findById(id).
                 orElseThrow(() ->
                         new IllegalArgumentException("Item-Categoria não encontrado"));
     }
 
     @PostMapping
     public ResponseEntity<ItemCategoria> save(@RequestBody ItemCategoriaRequestDTO dto ) {
-        if (dto.id_itemCategoria().toString().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
         ItemCategoria itemCategoria = new ItemCategoria();
-        itemCategoria.setId_itemCategoria(Integer.valueOf(dto.id_itemCategoria()));
+
+        itemCategoria.setId_itemCategoria(dto.id_itemCategoria());
+        itemCategoria.setId_categoria(dto.id_categoria());
+        itemCategoria.setId_produto(dto.id_produto());
 
         this.repository.save(itemCategoria);
         return ResponseEntity.ok(itemCategoria);
@@ -53,18 +52,16 @@ public class ItemCategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItemCategoria> update(@PathVariable Integer id, @RequestBody ItemCategoriaRequestDTO dto) {
-        if (dto.id_itemCategoria().toString().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
-        ItemCategoria itemCategoria = this.repository.findById(id).
+    public ResponseEntity<ItemCategoria> update(@PathVariable ItemCategoria id, @RequestBody ItemCategoriaRequestDTO dto) {
+        ItemCategoria itemCategoria = this.repository.findById(id.getId_itemCategoria()).
                 orElseThrow(() ->
                         new IllegalArgumentException("Item-categoria não foi encontrado"));
 
-        itemCategoria.setId_itemCategoria(Integer.valueOf(dto.id_itemCategoria()));
+        itemCategoria.setId_itemCategoria(dto.id_itemCategoria());
+        itemCategoria.setId_produto(dto.id_produto());
+        itemCategoria.setId_categoria(dto.id_categoria());
 
-        this.repository.save(itemCategoria);
+        repository.save(itemCategoria);
         return ResponseEntity.ok(itemCategoria);
     }
 }

@@ -1,8 +1,6 @@
 package br.grupointegrado.book.model;
 
-
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity

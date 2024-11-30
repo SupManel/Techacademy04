@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/itemPedido")
+@RequestMapping("/api/item-pedido")
 public class ItemPedidoController {
 
     @Autowired
@@ -19,27 +19,27 @@ public class ItemPedidoController {
 
     @GetMapping
     public ResponseEntity<List<ItemPedido>> findAll() {
-        List<ItemPedido> itemPedidos = repository.findAll();
+        List<ItemPedido> itemPedidos = this.repository.findAll();
         return ResponseEntity.ok(itemPedidos);
     }
 
     @GetMapping("/{id}")
     public ItemPedido findById(@PathVariable Integer id) {
-        return repository.findById(id).
+        return this.repository.findById(id).
                 orElseThrow(() ->
                         new IllegalArgumentException("Item-Pedido não encontrado"));
     }
+
 
     @PostMapping
     public ResponseEntity<ItemPedido> save(@RequestBody ItemPedidoRequestDTO dto ) {
         ItemPedido itemPedido = new ItemPedido();
 
         itemPedido.setId_item(dto.id_item());
-        itemPedido.setId_pedido(dto.id_pedido());
-        itemPedido.setPreco_unitario(dto.preco_unitario());
         itemPedido.setQuantidade_item(dto.quantidade_item());
+        itemPedido.setPreco_unitario(dto.preco_unitario());
+        itemPedido.setId_pedido(dto.id_pedido());
         itemPedido.setId_produto(dto.id_produto());
-
 
         this.repository.save(itemPedido);
         return ResponseEntity.ok(itemPedido);
@@ -56,14 +56,16 @@ public class ItemPedidoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItemPedido> update(@PathVariable Integer id, @RequestBody ItemPedidoRequestDTO dto) {
-        ResponseEntity.status(428).build();
+    public ResponseEntity<ItemPedido> update(@PathVariable ItemPedido id, @RequestBody ItemPedidoRequestDTO dto) {
+        ItemPedido itemPedido = this.repository.findById(id.getId_item()).
+              orElseThrow(() ->
+        new IllegalArgumentException("Item-pedido não encrontrado"));
 
-        ItemPedido itemPedido = this.repository.findById(id).
-                orElseThrow(() ->
-                        new IllegalArgumentException("Item-Pedido não foi encontrado"));
-
-
+        itemPedido.setId_item(dto.id_item());
+        itemPedido.setQuantidade_item(dto.quantidade_item());
+        itemPedido.setPreco_unitario(dto.preco_unitario());
+        itemPedido.setId_pedido(dto.id_pedido());
+        itemPedido.setId_produto(dto.id_produto());
 
         this.repository.save(itemPedido);
         return ResponseEntity.ok(itemPedido);

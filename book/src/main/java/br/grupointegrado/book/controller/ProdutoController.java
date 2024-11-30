@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.lang.Integer.valueOf;
 
 @RestController
 @RequestMapping("/api/produto")
@@ -59,12 +58,17 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> update(@PathVariable Produto id) {
+    public ResponseEntity<Produto> update(@PathVariable Produto id, @RequestBody ProdutoRequestDTO dto) {
         Produto produto = this.repository.findById(id.getId_produto())
                 .orElseThrow(() ->
                         new IllegalArgumentException("Produto não encontrado"));
 
-        produto.setId_produto(id.getId_produto());
+        produto.setId_produto(dto.id_produto());
+        produto.setTitulo(dto.titulo());
+        produto.setAutor(dto.autor());
+        produto.setDescricao(dto.descricao());
+        produto.setPreco(dto.preco());
+        produto.setEstoque(dto.estoque());
 
         repository.save(produto);
         return ResponseEntity.ok(produto);

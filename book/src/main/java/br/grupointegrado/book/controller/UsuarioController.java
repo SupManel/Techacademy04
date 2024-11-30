@@ -57,4 +57,21 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable Usuario id, @RequestBody UsuarioRequestDTO DTO) {
+        Usuario usuario = this.repository.findById(id.getId_usuario())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Usuario não encontrado"));
+
+        usuario.setId_usuario(DTO.id_usuario());
+        usuario.setNome(DTO.nome());
+        usuario.setGmail(DTO.gmail());
+        usuario.setSenha(DTO.senha());
+        usuario.setCep(DTO.senha());
+
+        this.repository.save(usuario);
+        return ResponseEntity.ok(usuario);
+    }
+
+
 }

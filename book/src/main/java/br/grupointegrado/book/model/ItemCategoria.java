@@ -1,7 +1,11 @@
 package br.grupointegrado.book.model;
 
+
 import jakarta.persistence.*;
+
+
 import java.util.Objects;
+
 
 @Entity
 @Table (name = "itemcategoria")
@@ -9,6 +13,7 @@ public class ItemCategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_itemcategoria")
     private Integer id_itemCategoria;
 
     @ManyToOne
@@ -42,6 +47,7 @@ public class ItemCategoria {
     public void setId_produto(Produto id_produto) {
         this.id_produto = id_produto;
     }
+
 
     @Override
     public boolean equals(Object o) {

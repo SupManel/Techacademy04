@@ -19,7 +19,7 @@ public class CategoriaController {
 
     @GetMapping
     public ResponseEntity<List<Categoria>> findAll() {
-        List<Categoria> categorias = repository.findAll();
+        List<Categoria> categorias = this.repository.findAll();
         return ResponseEntity.ok(categorias);
     }
 

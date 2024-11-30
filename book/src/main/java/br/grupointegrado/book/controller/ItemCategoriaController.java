@@ -26,7 +26,7 @@ public class ItemCategoriaController {
     public ItemCategoria findById(@PathVariable Integer id) {
         return this.repository.findById(id).
                 orElseThrow(() ->
-                        new IllegalArgumentException("Item-Categoria não encontrado"));
+                        new IllegalArgumentException("ItemCategoria não encontrado"));
     }
 
     @PostMapping
@@ -45,7 +45,7 @@ public class ItemCategoriaController {
     public ResponseEntity<Void> delete(@PathVariable ItemCategoria id) {
         ItemCategoria itemCategoria = this.repository.findById(id.getId_itemCategoria())
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Item-categoria não encontrado"));
+                        new IllegalArgumentException("ItemCategoria não encontrado"));
 
         this.repository.delete(itemCategoria);
         return ResponseEntity.noContent().build();
@@ -55,13 +55,13 @@ public class ItemCategoriaController {
     public ResponseEntity<ItemCategoria> update(@PathVariable ItemCategoria id, @RequestBody ItemCategoriaRequestDTO dto) {
         ItemCategoria itemCategoria = this.repository.findById(id.getId_itemCategoria()).
                 orElseThrow(() ->
-                        new IllegalArgumentException("Item-categoria não foi encontrado"));
+                        new IllegalArgumentException("ItemCategoria não foi encontrado"));
 
         itemCategoria.setId_itemCategoria(dto.id_itemCategoria());
         itemCategoria.setId_produto(dto.id_produto());
         itemCategoria.setId_categoria(dto.id_categoria());
 
-        repository.save(itemCategoria);
+        this.repository.save(itemCategoria);
         return ResponseEntity.ok(itemCategoria);
     }
 }

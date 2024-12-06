@@ -12,6 +12,6 @@ public record PedidoRequestDTO(
         Float total,
         LocalDate data,
         String status,
-        Usuario id_usuario,
-        List<Pagamento> pagamento) {
+        Usuario id_usuario
+        /*List<Pagamento> pagamento*/) {
 }

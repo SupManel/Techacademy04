@@ -46,8 +46,8 @@ public class PedidosController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Pedidos id) {
-        Pedidos pedido = this.repository.findById(id.getId_pedido())
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Pedidos pedido = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pedido não encontrado"));
 
@@ -64,7 +64,7 @@ public class PedidosController {
         pedido.setData(dto.data());
         pedido.setPreco(dto.preco());
         pedido.setTotal(dto.total());
-        pedido.setPagamento(dto.pagamento());
+        //pedido.setPagamento(dto.pagamento());
         pedido.setStatus(dto.status());
         pedido.setId_pedido(dto.id_pedido());
         pedido.setId_usuario(dto.id_usuario());

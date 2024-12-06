@@ -26,14 +26,14 @@ public class Pedidos {
     @Column
     private String status;
 
-    @OneToMany(mappedBy = "id_pagamento")
+/*  @OneToMany(mappedBy = "id_pagamento")
     @JsonIgnoreProperties("id_pagamento")
     private List<Pagamento> Pagamento;
-
+*/
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario id_usuario;
-
+/*
     public List<Pagamento> getPagamentos() {
         return Pagamento;
     }
@@ -41,7 +41,7 @@ public class Pedidos {
     public void setPagamento(List<Pagamento> pagamento) {
         Pagamento = pagamento;
     }
-
+*/
     public Integer getId_pedido() {
         return id_pedido;
     }

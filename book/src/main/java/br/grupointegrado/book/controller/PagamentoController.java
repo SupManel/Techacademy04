@@ -39,14 +39,15 @@ public class PagamentoController {
         pagamento.setValor(dto.valor());
         pagamento.setData_pagamento(dto.date_pagamento());
         pagamento.setMetodo(dto.metodo());
+        pagamento.setId_pedido(dto.id_pedido());
 
         this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Pagamento id) {
-        Pagamento pagamento = this.repository.findById(id.getId_pagamento())
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Pagamento pagamento = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Pagamento não encontrado"));
 
@@ -64,6 +65,7 @@ public class PagamentoController {
         pagamento.setValor(dto.valor());
         pagamento.setData_pagamento(dto.date_pagamento());
         pagamento.setMetodo(dto.metodo());
+        pagamento.setId_pedido(dto.id_pedido());
 
         this.repository.save(pagamento);
         return ResponseEntity.ok(pagamento);

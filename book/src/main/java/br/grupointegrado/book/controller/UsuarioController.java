@@ -47,8 +47,8 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Usuario id) {
-        Usuario usuario = this.repository.findById(id.getId_usuario())
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Usuario usuario = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Usuario não encontrado"));
 

@@ -48,8 +48,8 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Produto id) {
-        Produto produto = this.repository.findById(id.getId_produto())
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        Produto produto = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Produto não encontrado"));
 
@@ -58,8 +58,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> update(@PathVariable Produto id, @RequestBody ProdutoRequestDTO dto) {
-        Produto produto = this.repository.findById(id.getId_produto())
+    public ResponseEntity<Produto> update(@PathVariable Integer id, @RequestBody ProdutoRequestDTO dto) {
+        Produto produto = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Produto não encontrado"));
 

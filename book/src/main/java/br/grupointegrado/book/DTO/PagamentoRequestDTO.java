@@ -8,5 +8,6 @@ public record PagamentoRequestDTO(
         Integer id_pagamento,
         LocalDate date_pagamento,
         Float valor,
-        String metodo) {
+        String metodo,
+        Pedidos id_pedido) {
 }

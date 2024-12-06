@@ -42,8 +42,8 @@ public class ItemCategoriaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable ItemCategoria id) {
-        ItemCategoria itemCategoria = this.repository.findById(id.getId_itemCategoria())
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        ItemCategoria itemCategoria = this.repository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("ItemCategoria não encontrado"));
 
